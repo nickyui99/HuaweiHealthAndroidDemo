@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.test2.abc.view.MainFragment">
+
+    <Button
+        android:id="@+id/btn_authorize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="Authorize "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/txt_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Huawei Health Kit Demo"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.20" />
+
+    <TextView
+        android:id="@+id/txt_authorize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Is Authorized: "
+        app:layout_constraintEnd_toEndOf="@+id/txt_app_name"
+        app:layout_constraintStart_toStartOf="@+id/txt_app_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_app_name" />
+
+    <Button
+        android:id="@+id/btn_unauthorize"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Unauthorize"
+        app:layout_constraintEnd_toEndOf="@+id/btn_authorize"
+        app:layout_constraintStart_toStartOf="@+id/btn_authorize"
+        app:layout_constraintTop_toBottomOf="@+id/btn_authorize" />
+
+    <Button
+        android:id="@+id/btn_heart_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Heart Rate Data"
+        app:layout_constraintEnd_toEndOf="@+id/btn_unauthorize"
+        app:layout_constraintStart_toStartOf="@+id/btn_unauthorize"
+        app:layout_constraintTop_toBottomOf="@+id/btn_unauthorize" />
+</androidx.constraintlayout.widget.ConstraintLayout>
