@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -59,11 +58,7 @@ dependencies {
     //Android fragment
     val fragment_version = "1.6.2"
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
-
-    // Java language implementation
     implementation("androidx.fragment:fragment:$fragment_version")
-    // Kotlin
-    implementation("androidx.fragment:fragment-ktx:$fragment_version")
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
@@ -80,4 +75,6 @@ dependencies {
     val lifeVersion = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeVersion")
     implementation("androidx.lifecycle:lifecycle-process:$lifeVersion")
+
+    implementation ("com.google.code.gson:gson:2.10.1")
 }

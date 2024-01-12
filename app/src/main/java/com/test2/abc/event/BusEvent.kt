@@ -6,4 +6,5 @@ sealed class BusEvent {
         var errorMessage: String? = ""
     ): BusEvent()
 
+
 }

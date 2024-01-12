@@ -9,7 +9,6 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,11 +19,10 @@ import com.test2.abc.utils.AC2DMUtil
 import com.test2.abc.utils.Preferences
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.net.URLDecoder
-import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
-class AuthorizeFragment : Fragment(R.layout.fragment_authorize) {
-    private val TAG = AuthorizeFragment::class.java.simpleName
+class OpenAuthorizeFragment : Fragment(R.layout.fragment_open_authorize) {
+    private val TAG = OpenAuthorizeFragment::class.java.simpleName
 
     private var _binding: FragmentAuthorizeBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +44,9 @@ class AuthorizeFragment : Fragment(R.layout.fragment_authorize) {
             "client_id" to Constants.APP_ID.toString(),
             "response_type" to "code",
             "redirect_uri" to Constants.FIREBASE_AUTHORIZE_HEALTH_REDIRECT_URL,
-            "scope" to Constants.HUAWEI_HEALTH_STEP_BOTH_SCOPE + " "+
-                    Constants.HUAWEI_HEART_RATE_BOTH_SCOPE + " " +
+            "scope" to Constants.HUAWEI_HEALTH_STEP_SCOPE + " "+
+                    Constants.HUAWEI_HEART_RATE_READ_SCOPE + " " +
+                    Constants.HUAWEI_HEART_RATE_WRITE_SCOPE + " " +
                     Constants.HUAWEI_HEALTH_DATA_ONE_YEAR_SCOPE
             ,
             "access_type" to "offline"

@@ -42,8 +42,6 @@ class MainViewModel : ViewModel(){
                 } else {
                     EventBus.getDefault().post(BusEvent.UnauthorizeHealthKitEvent(false, response.message))
                 }
-
-
             } catch (err: IOException) {
                 // Handle the exception
                 err.printStackTrace()
