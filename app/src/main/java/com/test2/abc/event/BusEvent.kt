@@ -6,5 +6,8 @@ sealed class BusEvent {
         var errorMessage: String? = ""
     ): BusEvent()
 
-
+    data class RefreshTokenEvent(
+        var success: Boolean,
+        var errorMessage: String? = ""
+    ): BusEvent()
 }

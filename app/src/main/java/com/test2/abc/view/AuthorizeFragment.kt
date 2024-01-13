@@ -42,10 +42,10 @@ class AuthorizeFragment : Fragment(R.layout.fragment_authorize) {
         val baseUrl = Constants.HUAWEI_AUTHORIZE_URL
         val urlBuilder = baseUrl.toHttpUrlOrNull()?.newBuilder()
 
-        val params = mapOf<String, String>(
+        val params = mapOf(
             "client_id" to Constants.APP_ID.toString(),
             "response_type" to "code",
-            "redirect_uri" to Constants.FIREBASE_AUTHORIZE_HEALTH_REDIRECT_URL,
+            "redirect_uri" to Constants.FIREBASE_AUTHORIZE_HEALTH_REDIRECT_URL + "?user_id=1", //Replace the user id with your unique id based on your system
             "scope" to Constants.HUAWEI_HEALTH_STEP_BOTH_SCOPE + " "+
                     Constants.HUAWEI_HEART_RATE_BOTH_SCOPE + " " +
                     Constants.HUAWEI_HEALTH_DATA_ONE_YEAR_SCOPE

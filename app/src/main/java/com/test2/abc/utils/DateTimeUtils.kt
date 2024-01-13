@@ -1,8 +1,10 @@
 package com.test2.abc.utils
 
+import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 object DateTimeUtils {
     fun getTimestamp(calendar: Calendar): Long {
@@ -36,11 +38,25 @@ object DateTimeUtils {
         return Calendar.getInstance()
     }
 
-    fun formatCalendarToyyyyMMdd(calendar: Calendar): String {
+    fun formatCalendarToDateString(calendar: Calendar, datePattern: String): String {
         // Create a SimpleDateFormat with the desired format
-        val sdf = SimpleDateFormat("yyyyMMdd")
+        val sdf = SimpleDateFormat(datePattern)
 
         // Format the Calendar's time to a string
         return sdf.format(calendar.time)
     }
+    fun convertMsTimestampToDateTime(timestamp: Long): String {
+        try {
+            // Convert nanoseconds to milliseconds
+            val timestampInMilliseconds = timestamp / 1_000_000
+
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+            val date = Date(timestampInMilliseconds)
+            return dateFormat.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return "Invalid Date"
+        }
+    }
+
 }

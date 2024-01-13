@@ -6,6 +6,7 @@ object Constants {
 
     //URLs
     const val FIREBASE_BASE_URL = "https://us-central1-healthkitdemoapi.cloudfunctions.net/health_demo"
+    const val FIREBASE_REFRESH_HUAWEI_HEALTH_TOKEN_URL = FIREBASE_BASE_URL + "/refresh_huawei_health_token"
     const val FIREBASE_AUTHORIZE_HEALTH_REDIRECT_URL = FIREBASE_BASE_URL + "/redirect"
     const val HUAWEI_AUTHORIZE_URL = "https://oauth-login.cloud.huawei.com/oauth2/v3/authorize"
     const val HUAWEI_UNAUTHORIZE_URL = "https://health-api.cloud.huawei.com/healthkit/v2/consents/${this.APP_ID}?deleteData=false"

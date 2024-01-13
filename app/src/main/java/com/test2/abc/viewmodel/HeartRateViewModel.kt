@@ -15,6 +15,7 @@ import com.test2.abc.utils.Preferences
 import com.test2.abc.view.HeartRateFragment
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.Calendar
 
 class HeartRateViewModel : ViewModel() {
 
@@ -24,6 +25,8 @@ class HeartRateViewModel : ViewModel() {
     val intantaneousHRData: LiveData<HeartRate?>
         get() = _intantaneousHRData
 
+    // Create a Gson instance
+    val gson = Gson()
 
     //Currently insufficient permissions need to apply through huawei developer health kit
     fun createDataCollector(context: Context, collectorDataType: String) {
@@ -67,7 +70,7 @@ class HeartRateViewModel : ViewModel() {
         }
     }
 
-    fun fetchInstantaneousHeartData(context: Context) {
+    fun fetchInstantaneousHeartData(context: Context, startTime: Calendar, endTime: Calendar) {
         viewModelScope.launch {
             var heartRate: HeartRate? = null
 
@@ -83,8 +86,8 @@ class HeartRateViewModel : ViewModel() {
                 )
 
                 val body = mapOf(
-                    "startTime" to DateTimeUtils.getTimestamp(DateTimeUtils.get7DaysBeforeToday()),
-                    "endTime" to DateTimeUtils.getTimestamp(DateTimeUtils.getToday()),
+                    "startTime" to DateTimeUtils.getTimestamp(startTime),
+                    "endTime" to DateTimeUtils.getTimestamp(endTime),
                     "polymerizeWith" to listOf(
                         mapOf("dataTypeName" to Constants.HUAWEI_DT_INSTANTANEOUS_HEART_RATE)
                     )
@@ -95,9 +98,6 @@ class HeartRateViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string() ?: ""
                     Log.d(TAG, responseBody)
-
-                    // Create a Gson instance
-                    val gson = Gson()
 
                     responseBody.let {
                         // Parse JSON string to HeartRate object
@@ -113,8 +113,6 @@ class HeartRateViewModel : ViewModel() {
             } catch (err: IOException) {
                 // Handle the exception
                 err.printStackTrace()
-                // Handle network-related errors
-                // viewModel.handleNetworkError()
             } catch (e: Exception) {
                 // Handle other unexpected errors
                 e.printStackTrace()
@@ -136,8 +134,8 @@ class HeartRateViewModel : ViewModel() {
                 )
 
                 val body = mapOf(
-                    "startDay" to DateTimeUtils.formatCalendarToyyyyMMdd(DateTimeUtils.get7DaysBeforeToday()),
-                    "endDay" to DateTimeUtils.formatCalendarToyyyyMMdd(DateTimeUtils.getToday()),
+                    "startDay" to DateTimeUtils.formatCalendarToDateString(DateTimeUtils.get7DaysBeforeToday(), "yyyyMMdd hh:mm:ss"),
+                    "endDay" to DateTimeUtils.formatCalendarToDateString(DateTimeUtils.getToday(), "yyyyMMdd hh:mm:ss"),
                     "dataTypes" to listOf(
                         Constants.HUAWEI_DT_CONTINUOUS_HEART_RATE
                     ),

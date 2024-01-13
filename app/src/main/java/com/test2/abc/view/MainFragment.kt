@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class MainFragment: Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
     private val TAG = MainFragment::class.java.simpleName
 
     private var _binding: FragmentMainBinding? = null
@@ -28,24 +28,39 @@ class MainFragment: Fragment(R.layout.fragment_main) {
 
     private var isAuthorized = false
 
+    private var accessToken: String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
+        checkAuth()
         updateView()
         attachActions()
     }
 
-    fun updateView() {
-        val accessToken = Preferences.getString(requireContext(), Constants.SP_ACCESS_TOKEN)
+    fun checkAuth() {
+        accessToken = Preferences.getString(requireContext(), Constants.SP_ACCESS_TOKEN)
 
         isAuthorized = !accessToken.isNullOrBlank()
 
+        if (isAuthorized){
+            viewModel.refreshToken(requireContext())
+        }
+    }
 
-        Log.d(TAG, accessToken)
+    fun updateView() {
+        Log.d(TAG, "Access token: " + accessToken)
         Log.d(TAG, "isAuthorized: " + isAuthorized)
 
         binding.txtAuthorize.text = "Is Authorized: $isAuthorized"
+
+        if (accessToken != null) {
+            binding.txtAccessToken.text = "Access Token: $accessToken"
+            binding.txtAccessToken.visibility = View.VISIBLE
+        } else {
+            binding.txtAccessToken.visibility = View.INVISIBLE
+        }
     }
 
     fun attachActions() {
@@ -59,7 +74,7 @@ class MainFragment: Fragment(R.layout.fragment_main) {
             viewModel.unauthorizeHealthKit(requireContext())
         }
 
-        binding.btnHeartRate.setOnClickListener{
+        binding.btnHeartRate.setOnClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToHeartRateFragment()
             )
@@ -78,13 +93,32 @@ class MainFragment: Fragment(R.layout.fragment_main) {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventReceived(event: BusEvent) {
-        when(event) {
+        when (event) {
             is BusEvent.UnauthorizeHealthKitEvent -> {
-                if(event.success) {
+                if (event.success) {
+                    checkAuth()
                     updateView()
-                    Toast.makeText(requireContext(), "Health kit has been unauthorized", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Health kit has been unauthorized",
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
-                    Toast.makeText(requireContext(), "Health kit unauthorized failed", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Health kit unauthorized failed",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            is BusEvent.RefreshTokenEvent-> {
+                Log.d(TAG, event.toString())
+                if (event.success) {
+                    accessToken = Preferences.getString(requireContext(), Constants.SP_ACCESS_TOKEN)
+                    updateView()
+                    Toast.makeText(requireContext(), "Access token refreshed", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Access token refresh failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }

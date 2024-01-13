@@ -9,7 +9,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
@@ -36,7 +35,7 @@ class MyHttpClient {
             val request = Request.Builder()
                 .url(urlBuilder?.build().toString())
 
-            if(headers.isNotEmpty()) {
+            if (headers.isNotEmpty()) {
                 for ((key, value) in headers) {
                     request.addHeader(key, value)
                 }
@@ -85,9 +84,7 @@ class MyHttpClient {
             Log.d(TAG, "Request Headers: ${request.headers}")
 
             // Log the request body parameters individually
-
-                Log.d(TAG, "Request Body Parameter ${jsonString}")
-
+            Log.d(TAG, "Request Body Parameter ${jsonString}")
 
             val response: Response = client.newCall(request).execute()
 
@@ -147,6 +144,7 @@ class MyHttpClient {
             throw IOException("Error during network operation: ${e.message}")
         }
     }
+
     fun convertMapToJsonString(map: Map<*, *>): String {
         val jsonObject = JSONObject(map)
         return jsonObject.toString()
