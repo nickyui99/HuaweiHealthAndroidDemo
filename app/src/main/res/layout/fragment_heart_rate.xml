@@ -1,25 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/heartRateContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="4dp"
+    android:layout_marginBottom="8dp"
     android:orientation="vertical"
+    android:padding="4dp"
     tools:context=".view.HeartRateFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_previous_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Previous" />
+
+        <TextView
+            android:id="@+id/txt_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/btn_next_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txt_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:text="TextView"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/heartRateRecyclerView"
         layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_header"
         tools:listitem="@layout/item_heart_rate" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

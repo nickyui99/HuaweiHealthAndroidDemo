@@ -8,13 +8,13 @@
     <!-- Header TextView -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp">
 
         <TextView
             android:id="@+id/txt_heart_rate_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:padding="8dp"
             android:textSize="14sp" />
     </androidx.cardview.widget.CardView>
