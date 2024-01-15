@@ -34,7 +34,6 @@ class HeartRateFragment : Fragment(R.layout.fragment_heart_rate) {
         binding.txtWeek.text = formatWeekText(startTime, endTime)
 
         attachActions()
-
         fetchData()
 
         viewModel.intantaneousHRData.observe(viewLifecycleOwner, Observer { heartRateList ->

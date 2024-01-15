@@ -13,7 +13,9 @@ import com.test2.abc.utils.DateTimeUtils
 import com.test2.abc.utils.MyHttpClient
 import com.test2.abc.utils.Preferences
 import com.test2.abc.view.HeartRateFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.Calendar
 
@@ -71,7 +73,7 @@ class HeartRateViewModel : ViewModel() {
     }
 
     fun fetchInstantaneousHeartData(context: Context, startTime: Calendar, endTime: Calendar) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             var heartRate: HeartRate? = null
 
             try {
@@ -89,11 +91,13 @@ class HeartRateViewModel : ViewModel() {
                     "startTime" to DateTimeUtils.getTimestamp(startTime),
                     "endTime" to DateTimeUtils.getTimestamp(endTime),
                     "polymerizeWith" to listOf(
+//                        mapOf("dataTypeName" to Constants.HUAWEI_DT_CONTINUOUS_STEP_DELTA)
                         mapOf("dataTypeName" to Constants.HUAWEI_DT_INSTANTANEOUS_HEART_RATE)
                     )
                 )
 
                 val response = MyHttpClient().post(Constants.HUAWEI_POLYMERIZE_SAMPLE_URL, body, headers)
+//                Log.d(TAG, "Response body" + response.body?.string())
 
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string() ?: ""
@@ -103,7 +107,9 @@ class HeartRateViewModel : ViewModel() {
                         // Parse JSON string to HeartRate object
                         heartRate = gson.fromJson(it, HeartRate::class.java)
 
-                        _intantaneousHRData.value= heartRate
+                        withContext(Dispatchers.Main) {
+                            _intantaneousHRData.value= heartRate
+                        }
                     }
                 } else {
                     // Handle unsuccessful response (e.g., server error)

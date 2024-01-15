@@ -15,7 +15,8 @@ object Constants {
     const val HUAWEI_DAILY_POLYMERIZE_SAMPLE_URL = "https://health-api.cloud.huawei.com/healthkit/v2/sampleSet:dailyPolymerize"
 
     //HUAWEI HEALTH SCOPE
-    const val HUAWEI_HEALTH_STEP_SCOPE = "https://www.huawei.com/healthkit/step.read"
+    const val HUAWEI_HEALTH_STEP_READ_SCOPE = "https://www.huawei.com/healthkit/step.read"
+    const val HUAWEI_HEALTH_STEP_WRITE_SCOPE = "https://www.huawei.com/healthkit/step.write"
     const val HUAWEI_HEALTH_STEP_BOTH_SCOPE = "https://www.huawei.com/healthkit/heartrate.both"
     const val HUAWEI_HEART_RATE_READ_SCOPE = "https://www.huawei.com/healthkit/heartrate.read"
     const val HUAWEI_HEART_RATE_WRITE_SCOPE = "https://www.huawei.com/healthkit/heartrate.write"
@@ -23,6 +24,8 @@ object Constants {
     const val HUAWEI_HEALTH_DATA_ONE_YEAR_SCOPE = "https://www.huawei.com/healthkit/historydata.open.year"
 
     //HUAWEI HEALTH DATA TYPEs
+    const val HUAWEI_DT_CONTINUOUS_STEP_DELTA = "com.huawei.continuous.steps.delta"
+    const val HUAWEI_DT_CONTINUOUS_STEP_TOTAL = "com.huawei.continuous.steps.total"
     const val HUAWEI_DT_INSTANTANEOUS_HEART_RATE = "com.huawei.instantaneous.heart_rate"
     const val HUAWEI_DT_CONTINUOUS_HEART_RATE = "com.huawei.continuous.heart_rate.statistics"
 
